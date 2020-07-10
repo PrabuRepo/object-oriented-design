@@ -5,5 +5,5 @@
     <artifactId>object-oriented-design</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>ood-concepts</artifactId>
+  <artifactId>design-problems</artifactId>
 </project>

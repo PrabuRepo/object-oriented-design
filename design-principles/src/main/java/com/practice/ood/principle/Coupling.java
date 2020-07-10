@@ -1,4 +1,4 @@
-package com.practice.ood.principle.others;
+package com.practice.ood.principle;
 
 public class Coupling {
 	public static void main(String[] args) {

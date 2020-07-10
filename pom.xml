@@ -12,6 +12,8 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 	<modules>
-		<module>ood-concepts</module>
+		<module>design-principles</module>
+		<module>design-patterns</module>
+		<module>design-problems</module>
 	</modules>
 </project>
