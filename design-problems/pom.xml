@@ -6,4 +6,12 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>design-problems</artifactId>
+  
+  <dependencies>
+  	<dependency>
+			<groupId>com.problems.practice</groupId>
+			<artifactId>consolidated-problems-module</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
 </project>

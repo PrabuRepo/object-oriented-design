@@ -7,11 +7,12 @@ import com.practice.ood.lib.AssortedMethods;
 public class ParkingLot {
 	private Level[] levels;
 	private final int NUM_LEVELS = 5;
+	private final int NUM_OF_SPOTS_PER_LEVEL = 30;
 
 	public ParkingLot() {
 		levels = new Level[NUM_LEVELS];
 		for (int i = 0; i < NUM_LEVELS; i++) {
-			levels[i] = new Level(i, 30);
+			levels[i] = new Level(i, NUM_OF_SPOTS_PER_LEVEL);
 		}
 	}
 
@@ -25,6 +26,10 @@ public class ParkingLot {
 		return false;
 	}
 
+	public void removeVehicle() {
+
+	}
+
 	public void print() {
 		for (int i = 0; i < levels.length; i++) {
 			System.out.print("Level" + i + ": ");
@@ -32,83 +37,6 @@ public class ParkingLot {
 			System.out.println("");
 		}
 		System.out.println("");
-	}
-}
-
-abstract class Vehicle {
-	protected ArrayList<ParkingSpot> parkingSpots = new ArrayList<ParkingSpot>();
-	protected String licensePlate;
-	protected int spotsNeeded;
-	protected VehicleSize size;
-
-	public int getSpotsNeeded() {
-		return spotsNeeded;
-	}
-
-	public VehicleSize getSize() {
-		return size;
-	}
-
-	/* Park vehicle in this spot (among others, potentially) */
-	public void parkInSpot(ParkingSpot spot) {
-		parkingSpots.add(spot);
-	}
-
-	/* Remove car from spot, and notify spot that it's gone */
-	public void clearSpots() {
-		for (int i = 0; i < parkingSpots.size(); i++) {
-			parkingSpots.get(i).removeVehicle();
-		}
-		parkingSpots.clear();
-	}
-
-	public abstract boolean canFitInSpot(ParkingSpot spot);
-
-	public abstract void print();
-}
-
-class Bus extends Vehicle {
-	public Bus() {
-		spotsNeeded = 5;
-		size = VehicleSize.Large;
-	}
-
-	public boolean canFitInSpot(ParkingSpot spot) {
-		return spot.getSize() == VehicleSize.Large;
-	}
-
-	public void print() {
-		System.out.print("B");
-	}
-}
-
-class Car extends Vehicle {
-	public Car() {
-		spotsNeeded = 1;
-		size = VehicleSize.Compact;
-	}
-
-	public boolean canFitInSpot(ParkingSpot spot) {
-		return spot.getSize() == VehicleSize.Large || spot.getSize() == VehicleSize.Compact;
-	}
-
-	public void print() {
-		System.out.print("C");
-	}
-}
-
-class Motorcycle extends Vehicle {
-	public Motorcycle() {
-		spotsNeeded = 1;
-		size = VehicleSize.Motorcycle;
-	}
-
-	public boolean canFitInSpot(ParkingSpot spot) {
-		return true;
-	}
-
-	public void print() {
-		System.out.print("M");
 	}
 }
 
@@ -270,6 +198,83 @@ class ParkingSpot {
 		} else {
 			vehicle.print();
 		}
+	}
+}
+
+abstract class Vehicle {
+	protected ArrayList<ParkingSpot> parkingSpots = new ArrayList<>();
+	protected String licensePlate;
+	protected int spotsNeeded;
+	protected VehicleSize size;
+
+	public int getSpotsNeeded() {
+		return spotsNeeded;
+	}
+
+	public VehicleSize getSize() {
+		return size;
+	}
+
+	/* Park vehicle in this spot (among others, potentially) */
+	public void parkInSpot(ParkingSpot spot) {
+		parkingSpots.add(spot);
+	}
+
+	/* Remove car from spot, and notify spot that it's gone */
+	public void clearSpots() {
+		for (int i = 0; i < parkingSpots.size(); i++) {
+			parkingSpots.get(i).removeVehicle();
+		}
+		parkingSpots.clear();
+	}
+
+	public abstract boolean canFitInSpot(ParkingSpot spot);
+
+	public abstract void print();
+}
+
+class Bus extends Vehicle {
+	public Bus() {
+		spotsNeeded = 5;
+		size = VehicleSize.Large;
+	}
+
+	public boolean canFitInSpot(ParkingSpot spot) {
+		return spot.getSize() == VehicleSize.Large;
+	}
+
+	public void print() {
+		System.out.print("B");
+	}
+}
+
+class Car extends Vehicle {
+	public Car() {
+		spotsNeeded = 1;
+		size = VehicleSize.Compact;
+	}
+
+	public boolean canFitInSpot(ParkingSpot spot) {
+		return spot.getSize() == VehicleSize.Large || spot.getSize() == VehicleSize.Compact;
+	}
+
+	public void print() {
+		System.out.print("C");
+	}
+}
+
+class Motorcycle extends Vehicle {
+	public Motorcycle() {
+		spotsNeeded = 1;
+		size = VehicleSize.Motorcycle;
+	}
+
+	public boolean canFitInSpot(ParkingSpot spot) {
+		return true;
+	}
+
+	public void print() {
+		System.out.print("M");
 	}
 }
 
