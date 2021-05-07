@@ -5,21 +5,21 @@ import java.util.ArrayList;
 import com.practice.ood.lib.AssortedMethods;
 
 public class ParkingLot {
-	private Level[] levels;
-	private final int NUM_LEVELS = 5;
-	private final int NUM_OF_SPOTS_PER_LEVEL = 30;
+	private ParkingFloor[] parkingFloors;
+	private final int NUM_OF_FLOORS = 5;
+	private final int NUM_OF_SPOTS_PER_FLOOR = 30;
 
 	public ParkingLot() {
-		levels = new Level[NUM_LEVELS];
-		for (int i = 0; i < NUM_LEVELS; i++) {
-			levels[i] = new Level(i, NUM_OF_SPOTS_PER_LEVEL);
+		parkingFloors = new ParkingFloor[NUM_OF_FLOORS];
+		for (int i = 0; i < NUM_OF_FLOORS; i++) {
+			parkingFloors[i] = new ParkingFloor(i, NUM_OF_SPOTS_PER_FLOOR);
 		}
 	}
 
 	/* Park the vehicle in a spot (or multiple spots). Return false if failed. */
 	public boolean parkVehicle(Vehicle vehicle) {
-		for (int i = 0; i < levels.length; i++) {
-			if (levels[i].parkVehicle(vehicle)) {
+		for (int i = 0; i < parkingFloors.length; i++) {
+			if (parkingFloors[i].parkVehicle(vehicle)) {
 				return true;
 			}
 		}
@@ -31,9 +31,9 @@ public class ParkingLot {
 	}
 
 	public void print() {
-		for (int i = 0; i < levels.length; i++) {
+		for (int i = 0; i < parkingFloors.length; i++) {
 			System.out.print("Level" + i + ": ");
-			levels[i].print();
+			parkingFloors[i].print();
 			System.out.println("");
 		}
 		System.out.println("");
@@ -41,14 +41,14 @@ public class ParkingLot {
 }
 
 /* Represents a level in a parking garage */
-class Level {
-	private int floor;
+class ParkingFloor {
+	private int floorNo;
 	private ParkingSpot[] spots;
 	private int availableSpots = 0; // number of free spots
 	private static final int SPOTS_PER_ROW = 10;
 
-	public Level(int flr, int numberSpots) {
-		floor = flr;
+	public ParkingFloor(int flr, int numberSpots) {
+		this.floorNo = flr;
 		spots = new ParkingSpot[numberSpots];
 		int largeSpots = numberSpots / 4;
 		int bikeSpots = numberSpots / 4;
@@ -139,10 +139,10 @@ class ParkingSpot {
 	private VehicleSize spotSize;
 	private int row;
 	private int spotNumber;
-	private Level level;
+	private ParkingFloor parkingFloor;
 
-	public ParkingSpot(Level lvl, int r, int n, VehicleSize sz) {
-		level = lvl;
+	public ParkingSpot(ParkingFloor floor, int r, int n, VehicleSize sz) {
+		parkingFloor = floor;
 		row = r;
 		spotNumber = n;
 		spotSize = sz;
@@ -182,7 +182,7 @@ class ParkingSpot {
 
 	/* Remove vehicle from spot, and notify level that a new spot is available */
 	public void removeVehicle() {
-		level.spotFreed();
+		parkingFloor.spotFreed();
 		vehicle = null;
 	}
 
